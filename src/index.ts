@@ -1,28 +1,29 @@
-import fs from 'fs';
+import { MatchReader } from './MatchReader';
+import { MatchResult } from './MatchResult';
 
 /*
 Issues:
-1. Magic strings comparisons
-2. Source of data is hardcoded
-3. Data array is all strings, even though it might have numbers in it
+1. ✔ Magic strings comparisons - solved with enum
+2. ✔ Source of data is hardcoded - solved with CsvFileReader class
+3. ✔ Data array is all strings, even though it might have numbers in it 
+      - solved with tuple and type assertion
 4. Variable named after a specific team
 5. Analisis type is fixed
 6. No ability to output the report in different formats
 */
 
-const matches = fs
-  .readFileSync('football.csv', {
-    encoding: 'utf-8',
-  })
-  .split('\n')
-  .map((row): string[] => row.split(','));
+//  Needs to be written in it's entirety at the compile time
+// We cannot add properties dynamically at runtime, or rely on network request
+
+const matchReader = new MatchReader('football.csv');
+matchReader.read();
 
 let manUnitedWins = 0;
 
-for (let match of matches) {
-  if (match[1] === 'Man United' && match[5] === 'H') {
+for (let match of matchReader.data) {
+  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
     manUnitedWins++;
-  } else if (match[2] === 'Man United' && match[5] === 'A') {
+  } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
     manUnitedWins++;
   }
 }
