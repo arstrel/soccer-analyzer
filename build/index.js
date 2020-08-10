@@ -21,8 +21,10 @@ Issues:
 var csvFileReader = new CsvReader_1.CsvFileReader('football.csv');
 var matchReader = new MatchReader_1.MatchReader(csvFileReader);
 matchReader.load();
+// Create some instances to compose
 var winAnalysis = new WinAnalysis_1.WinAnalysis('Man United');
 var consoleReport = new ConsoleReport_1.ConsoleReport();
 var htmlReport = new HTMLReport_1.HTMLReport();
-var summary = new Summary_1.Summary(winAnalysis, htmlReport);
+// Or use a static method to get a pre-configured instance of summary
+var summary = Summary_1.Summary.winsAnalysisWithHTMLReport('Newcastle');
 summary.buildAndPrintReport(matchReader.matches);

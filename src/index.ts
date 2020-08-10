@@ -21,8 +21,12 @@ Issues:
 const csvFileReader = new CsvFileReader('football.csv');
 const matchReader = new MatchReader(csvFileReader);
 matchReader.load();
+
+// Create some instances to compose
 const winAnalysis = new WinAnalysis('Man United');
 const consoleReport = new ConsoleReport();
 const htmlReport = new HTMLReport();
-const summary = new Summary(winAnalysis, htmlReport);
+
+// Or use a static method to get a pre-configured instance of summary
+const summary = Summary.winsAnalysisWithHTMLReport('Newcastle');
 summary.buildAndPrintReport(matchReader.matches);
