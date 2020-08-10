@@ -1,6 +1,6 @@
-import { Analyzer } from 'Summary';
-import { MatchData } from 'MatchData';
-import { MatchResult } from './MatchResult';
+import { Analyzer } from '../Summary';
+import { MatchData } from '../MatchData';
+import { MatchResult } from '../MatchResult';
 
 export class WinAnalysis implements Analyzer {
   constructor(public team: string) {}

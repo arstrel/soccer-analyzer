@@ -1,8 +1,9 @@
 import { MatchReader } from './MatchReader';
 import { CsvFileReader } from './CsvReader';
 import { Summary } from './Summary';
-import { WinAnalysis } from './WinAnalysis';
-import { ConsoleReport } from './ConsoleReport';
+import { WinAnalysis } from './analyzers/WinAnalysis';
+import { ConsoleReport } from './reportTargets/ConsoleReport';
+import { HTMLReport } from './reportTargets/HTMLReport';
 
 /*
 Issues:
@@ -22,5 +23,6 @@ const matchReader = new MatchReader(csvFileReader);
 matchReader.load();
 const winAnalysis = new WinAnalysis('Man United');
 const consoleReport = new ConsoleReport();
-const summary = new Summary(winAnalysis, consoleReport);
+const htmlReport = new HTMLReport();
+const summary = new Summary(winAnalysis, htmlReport);
 summary.buildAndPrintReport(matchReader.matches);

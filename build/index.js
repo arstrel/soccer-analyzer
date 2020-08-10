@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MatchReader_1 = require("./MatchReader");
 var CsvReader_1 = require("./CsvReader");
 var Summary_1 = require("./Summary");
-var WinAnalysis_1 = require("./WinAnalysis");
-var ConsoleReport_1 = require("./ConsoleReport");
+var WinAnalysis_1 = require("./analyzers/WinAnalysis");
+var ConsoleReport_1 = require("./reportTargets/ConsoleReport");
+var HTMLReport_1 = require("./reportTargets/HTMLReport");
 /*
 Issues:
 1. ✔ Magic strings comparisons - solved with enum
@@ -22,5 +23,6 @@ var matchReader = new MatchReader_1.MatchReader(csvFileReader);
 matchReader.load();
 var winAnalysis = new WinAnalysis_1.WinAnalysis('Man United');
 var consoleReport = new ConsoleReport_1.ConsoleReport();
-var summary = new Summary_1.Summary(winAnalysis, consoleReport);
+var htmlReport = new HTMLReport_1.HTMLReport();
+var summary = new Summary_1.Summary(winAnalysis, htmlReport);
 summary.buildAndPrintReport(matchReader.matches);
