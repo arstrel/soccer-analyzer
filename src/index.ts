@@ -1,24 +1,26 @@
 import { MatchReader } from './MatchReader';
-import { MatchResult } from './MatchResult';
 import { CsvFileReader } from './CsvReader';
+import { Summary } from './Summary';
+import { WinAnalysis } from './WinAnalysis';
+import { ConsoleReport } from './ConsoleReport';
 
 /*
-Inheritance vs Composition
-
+Issues:
+1. ✔ Magic strings comparisons - solved with enum
+2. ✔ Source of data is hardcoded - solved with CsvFileReader class
+3. ✔ Data array is all strings, even though it might have numbers in it 
+      - solved with composition
+4. ✔ Variable named after a specific team - refactored to be an argument
+      to a composable Analyzer class
+5. ✔ Analisis type is fixed - refactored to an Analyzer iterface for a class
+6. ✔ No ability to output the report in different formats 
+      - refactored with Output interface
 */
 
 const csvFileReader = new CsvFileReader('football.csv');
 const matchReader = new MatchReader(csvFileReader);
 matchReader.load();
-
-let manUnitedWins = 0;
-
-for (let match of matchReader.matches) {
-  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
-    manUnitedWins++;
-  } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
-    manUnitedWins++;
-  }
-}
-
-console.log(`Man United won ${manUnitedWins} games`);
+const winAnalysis = new WinAnalysis('Man United');
+const consoleReport = new ConsoleReport();
+const summary = new Summary(winAnalysis, consoleReport);
+summary.buildAndPrintReport(matchReader.matches);
