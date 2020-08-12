@@ -8,4 +8,5 @@ TypeScript-Node app to:
 - Generate HTML report
 
 The CSV data looks like this:
+
 ![CSV data example](./data-sxample.png 'CSV data example')
